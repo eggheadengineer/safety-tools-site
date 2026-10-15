@@ -125,12 +125,36 @@ def edgegate(base, cand, cfg_thr):
             f"Without the {floor} ms absolute floor that would block the merge. Power is null on the host; on Jetson the tegrastats rails are sampled during the run.")
     return {"base": base, "cand": cand, "thr": cfg_thr, "verdict": verdict, "table": table, "note": note}
 
+def jetson(results_dir):
+    """Per-power-mode results from `edgegate run` files named orin-nx-mode<N>-<NAME>.json."""
+    import glob
+    modes = []
+    for f in sorted(glob.glob(str(pathlib.Path(results_dir) / "orin-nx-mode*.json"))):
+        r = json.load(open(f))
+        pw = r.get("power") or {}
+        total = pw.get("total_w") or pw.get("mean_w") or next((v for k, v in pw.items() if isinstance(v, (int, float))), None)
+        modes.append({"name": (r.get("device") or {}).get("power_mode") or pathlib.Path(f).stem.split("-")[-1],
+                      "p50": r["latency_ms"]["p50"], "p99": r["latency_ms"]["p99"], "ips": r["throughput_ips"],
+                      "power": total, "ram": (r.get("memory") or {}).get("board_ram_peak_mb"), "raw": pw})
+    if not modes:
+        return None
+    first = json.load(open(sorted(glob.glob(str(pathlib.Path(results_dir) / "orin-nx-mode*.json")))[0]))
+    dev, model = first["device"], first["model"]
+    rows = "".join(f"<tr><td>{m['name']}</td><td class=n>{m['p50']:.2f}</td><td class=n>{m['p99']:.2f}</td><td class=n>{m['ips']:.0f}</td><td class=n>{m['power']:.2f}</td><td class=n>{(m['p99']*m['power']):.1f}</td></tr>" for m in modes)
+    table = "<table><tr><th>nvpmodel</th><th>p50 (ms)</th><th>p99 (ms)</th><th>inf/s</th><th>VDD_IN (W)</th><th>ms x W</th></tr>" + rows + "</table>"
+    lede = (f"Real hardware: {model['path']} at {model['precision']} through TensorRT {model.get('version','')} on {dev.get('name','')}, "
+            f"{first['benchmark']['iterations']} iterations per mode with tegrastats sampled during the run. The engine is built once and cached by model hash, precision and shape.")
+    note = (f"Board: {dev.get('model', dev.get('name',''))}. The ms x W column is the energy-ish figure: lower is better when you can trade latency for power. "
+            "Every mode here was compared against MAXN_SUPER as baseline by `edgegate check`; a lower mode fails the 10% latency regression on purpose, which is the point of recording the power mode in the results file.")
+    return {"modes": modes, "table": table, "lede": lede, "note": note}
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--bundle", required=True); ap.add_argument("--fb", required=True)
     ap.add_argument("--base", required=True); ap.add_argument("--cand", required=True)
     ap.add_argument("--edgegate-config", default=str(HERE.parent / "edgegate/examples/host/edgegate.yaml"))
     ap.add_argument("--make-fb", action="store_true", help="regenerate --fb from faultbench's ReferenceDut first")
+    ap.add_argument("--jetson", default=str(HERE / "jetson-results"), help="directory of orin-nx-mode*.json edgegate results")
     a = ap.parse_args()
     if a.make_fb:
         make_fb(a.fb)
@@ -139,6 +163,7 @@ def main():
     bundle = json.load(open(a.bundle))
     data = {"graph": graph(bundle), "cov": cov(bundle), "fb": fb_rows(json.load(open(a.fb))),
             "eg": edgegate(json.load(open(a.base)), json.load(open(a.cand)), thr),
+            "jetson": jetson(a.jetson),
             "generated": {"reqthread": bundle["generator"]["version"], "bundle_created": bundle["created_at"]}}
     tpl = (HERE / "template.html").read_text()
     (HERE / "index.html").write_text(tpl.replace("/*__DATA__*/", json.dumps(data, separators=(",", ":"))))

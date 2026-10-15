@@ -108,6 +108,10 @@ footer{margin-top:56px;color:var(--mute);font-size:13px}
 <div id="egtable"></div>
 <p class="small mute" id="egnote"></p></div>
 
+<h2>edgegate on the Orin NX: ResNet-50 across power modes</h2>
+<p class="lede" id="jlede"></p>
+<div class="panel"><svg id="jbars" viewBox="0 0 1040 300"></svg><div id="jtable"></div><p class="small mute" id="jnote"></p></div>
+
 <h2>How they fit a safety lifecycle</h2>
 <div class="row">
 <div class="panel"><h3>IEC 61508 part 3</h3><p class="small">Requirements, architecture and design elements map to the lifecycle sections you load from your own copy of the standard. Tools are declared with their T1/T2/T3 class. Module, integration and PE-integration test levels are separate, so a passing host test cannot stand in for a board test.</p></div>
@@ -180,6 +184,22 @@ metrics.forEach(([lab,path,unit,thr],i)=>{const b=get(E.base,path),c=get(E.cand,
  el("text",{x:x0+bw+3,y:y0+40,"text-anchor":"middle",class:"verdict"},grp).textContent=E.verdict[path]||"";});
 const lg=el("g",{class:"bars"},B);el("rect",{x:20,y:270,width:14,height:14,class:"base"},lg);el("text",{x:40,y:282},lg).textContent="baseline";el("rect",{x:120,y:270,width:14,height:14,class:"cand"},lg);el("text",{x:140,y:282},lg).textContent="candidate";
 document.getElementById("egtable").innerHTML=E.table;document.getElementById("egnote").textContent=E.note;
+// ---- jetson power modes
+const J=DATA.jetson;
+if(J&&J.modes.length){
+ document.getElementById("jlede").textContent=J.lede;
+ const JB=document.getElementById("jbars"),n=J.modes.length,cw=1040/n,h=170,y0=215;
+ const maxL=Math.max(...J.modes.map(m=>m.p99)),maxP=Math.max(...J.modes.map(m=>m.power));
+ J.modes.forEach((m,i)=>{const x0=i*cw+24,bw=(cw-70)/2;const grp=el("g",{class:"bars"},JB);
+  el("rect",{x:x0,y:y0-h*m.p99/maxL,width:bw,height:h*m.p99/maxL,class:"cand",rx:3},grp);
+  el("rect",{x:x0+bw+6,y:y0-h*m.power/maxP,width:bw,height:h*m.power/maxP,class:"base",rx:3},grp);
+  el("text",{x:x0+bw/2,y:y0-h*m.p99/maxL-6,"text-anchor":"middle"},grp).textContent=m.p99.toFixed(2)+" ms";
+  el("text",{x:x0+bw*1.5+6,y:y0-h*m.power/maxP-6,"text-anchor":"middle"},grp).textContent=m.power.toFixed(1)+" W";
+  el("text",{x:x0+bw+3,y:y0+20,"text-anchor":"middle",class:"lab"},grp).textContent=m.name;
+  el("text",{x:x0+bw+3,y:y0+40,"text-anchor":"middle"},grp).textContent=m.ips.toFixed(0)+" inf/s";});
+ const lg=el("g",{class:"bars"},JB);el("rect",{x:20,y:270,width:14,height:14,class:"cand"},lg);el("text",{x:40,y:282},lg).textContent="latency p99";el("rect",{x:140,y:270,width:14,height:14,class:"base"},lg);el("text",{x:160,y:282},lg).textContent="board power (VDD_IN)";
+ document.getElementById("jtable").innerHTML=J.table;document.getElementById("jnote").textContent=J.note;
+}
 })();
 </script>
 </body>
