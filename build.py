@@ -140,6 +140,9 @@ def jetson(results_dir):
         return None
     first = json.load(open(sorted(glob.glob(str(pathlib.Path(results_dir) / "orin-nx-mode*.json")))[0]))
     dev, model = first["device"], first["model"]
+    v = str(model.get("version", ""))
+    if v.isdigit() and len(v) >= 5:          # trtexec reports 100300 for 10.3.0
+        model = {**model, "version": f"{int(v[:-4])}.{int(v[-4:-2])}.{int(v[-2:])}"}
     rows = "".join(f"<tr><td>{m['name']}</td><td class=n>{m['p50']:.2f}</td><td class=n>{m['p99']:.2f}</td><td class=n>{m['ips']:.0f}</td><td class=n>{m['power']:.2f}</td><td class=n>{(m['p99']*m['power']):.1f}</td></tr>" for m in modes)
     table = "<table><tr><th>nvpmodel</th><th>p50 (ms)</th><th>p99 (ms)</th><th>inf/s</th><th>VDD_IN (W)</th><th>ms x W</th></tr>" + rows + "</table>"
     lede = (f"Real hardware: {model['path']} at {model['precision']} through TensorRT {model.get('version','')} on {dev.get('name','')}, "
