@@ -70,12 +70,12 @@ footer{margin-top:56px;color:var(--mute);font-size:13px}
 <g transform="translate(390,20)"><rect width="150" height="54" rx="8"/><text x="75" y="24" text-anchor="middle">Source</text><text class="sub" x="75" y="42" text-anchor="middle">@satisfies in C</text></g>
 <g transform="translate(580,20)"><rect width="150" height="54" rx="8"/><text x="75" y="24" text-anchor="middle">Tests</text><text class="sub" x="75" y="42" text-anchor="middle">@verifies, JUnit, lcov</text></g>
 <g class="tool" transform="translate(580,110)"><rect width="150" height="54" rx="8"/><text x="75" y="24" text-anchor="middle">faultbench</text><text class="sub" x="75" y="42" text-anchor="middle">CAN faults + FTTI</text></g>
-<g class="tool" transform="translate(580,185)"><rect width="150" height="54" rx="8"/><text x="75" y="24" text-anchor="middle">edgegate</text><text class="sub" x="75" y="42" text-anchor="middle">latency / mem / power</text></g>
+<g class="tool" transform="translate(580,185)"><rect width="150" height="54" rx="8"/><text x="75" y="24" text-anchor="middle">edgegate</text><text class="sub" x="75" y="42" text-anchor="middle">latency, mem, power</text></g>
 <g class="tool" transform="translate(800,60)"><rect width="230" height="110" rx="8"/><text x="115" y="30" text-anchor="middle">reqthread</text><text class="sub" x="115" y="52" text-anchor="middle">hashed evidence bundle</text><text class="sub" x="115" y="70" text-anchor="middle">gate rules, baseline ratchet</text><text class="sub" x="115" y="88" text-anchor="middle">GitHub Action / GitLab component</text></g>
 <path d="M160,47 H198"/><path d="M350,47 H388"/><path d="M540,47 H578"/>
 <path d="M730,47 C770,47 760,100 798,100"/><path d="M730,137 C770,137 760,115 798,115"/><path d="M730,212 C770,212 760,130 798,130"/>
-<path d="M275,74 C275,140 540,137 578,137"/>
-<text class="sub" x="400" y="118">requirement drives the scenario</text>
+<path d="M275,74 C275,160 540,137 578,137"/>
+<text class="sub" x="300" y="170">requirement drives the scenario</text>
 </svg>
 </div>
 
@@ -170,11 +170,12 @@ const B=document.getElementById("bars"),E=DATA.eg;
 const metrics=[["latency p50","latency_ms.p50","ms",null],["latency p90","latency_ms.p90","ms",null],["latency p99","latency_ms.p99","ms",E.thr.latency_p99_ms_max],["peak RSS","memory.peak_rss_mb","MB",null],["top-1 accuracy","accuracy.value","",E.thr.accuracy_min]];
 const get=(o,p)=>p.split(".").reduce((a,k)=>a&&a[k],o);
 const cw=1040/metrics.length;
-metrics.forEach(([lab,path,unit,thr],i)=>{const b=get(E.base,path),c=get(E.cand,path);const mx=Math.max(b,c,thr||0)*1.25||1;const x0=i*cw+20,bw=(cw-60)/2,h=180,y0=230;
+metrics.forEach(([lab,path,unit,thr],i)=>{const b=get(E.base,path),c=get(E.cand,path);const fits=thr!=null&&thr<=Math.max(b,c)*3;const mx=Math.max(b,c,fits?thr:0)*1.3||1;const x0=i*cw+20,bw=(cw-60)/2,h=180,y0=230;
  const grp=el("g",{class:"bars"},B);
  el("rect",{x:x0,y:y0-h*b/mx,width:bw,height:h*b/mx,class:"base",rx:3},grp);el("rect",{x:x0+bw+6,y:y0-h*c/mx,width:bw,height:h*c/mx,class:"cand",rx:3},grp);
  el("text",{x:x0+bw/2,y:y0-h*b/mx-6,"text-anchor":"middle"},grp).textContent=b+(unit?" "+unit:"");el("text",{x:x0+bw*1.5+6,y:y0-h*c/mx-6,"text-anchor":"middle"},grp).textContent=c+(unit?" "+unit:"");
- if(thr!=null){el("line",{x1:x0-6,x2:x0+2*bw+12,y1:y0-h*thr/mx,y2:y0-h*thr/mx,class:"thr"},grp);el("text",{x:x0+2*bw+14,y:y0-h*thr/mx+4,class:"small"},grp).textContent=(path.startsWith("acc")?"min ":"max ")+thr;}
+ if(fits){el("line",{x1:x0-6,x2:x0+2*bw+12,y1:y0-h*thr/mx,y2:y0-h*thr/mx,class:"thr"},grp);el("text",{x:x0+2*bw+14,y:y0-h*thr/mx+4},grp).textContent=(path.startsWith("acc")?"min ":"max ")+thr;}
+ else if(thr!=null){el("text",{x:x0+bw+3,y:y0-h-8,"text-anchor":"middle"},grp).textContent="limit "+thr+" "+unit+" (off scale)";}
  el("text",{x:x0+bw+3,y:y0+20,"text-anchor":"middle",class:"lab"},grp).textContent=lab;
  el("text",{x:x0+bw+3,y:y0+40,"text-anchor":"middle",class:"verdict"},grp).textContent=E.verdict[path]||"";});
 const lg=el("g",{class:"bars"},B);el("rect",{x:20,y:270,width:14,height:14,class:"base"},lg);el("text",{x:40,y:282},lg).textContent="baseline";el("rect",{x:120,y:270,width:14,height:14,class:"cand"},lg);el("text",{x:140,y:282},lg).textContent="candidate";
