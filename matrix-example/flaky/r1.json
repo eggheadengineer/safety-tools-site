@@ -1,6 +1,6 @@
 {
  "edgegate_version": "0.2.0",
- "created_at": "2026-10-16T01:42:09Z",
+ "created_at": "2026-10-16T03:01:33Z",
  "device": {
   "name": "host",
   "hostname": "topski-M715q",
@@ -31,7 +31,7 @@
  "command": {
   "exit_code": 3,
   "timed_out": false,
-  "wall_s": 2.1,
+  "wall_s": 2.16,
   "stdout": "/home/lilchia/workspace/safety-tools-site/matrix-example/flaky/r1.d/stdout.log",
   "argv": [
    "/usr/bin/env",
@@ -43,13 +43,13 @@
    "40"
   ],
   "timeline": "/home/lilchia/workspace/safety-tools-site/matrix-example/flaky/r1.d/timeline.csv",
-  "started_at": "2026-10-16T01:42:06Z",
+  "started_at": "2026-10-16T03:01:31Z",
   "forensics": {
    "window_s": 30.0,
    "death_t_s": null,
    "samples": 0,
    "process_rss_mb": {
-    "min": 12,
+    "min": 0,
     "max": 14
    }
   }
@@ -57,7 +57,7 @@
  "metrics": {
   "detections": {
    "count": 80,
-   "per_s": 38.095,
+   "per_s": 37.037,
    "file": "/home/lilchia/workspace/safety-tools-site/matrix-example/flaky/r1.d/events.log"
   },
   "errors": {
@@ -78,7 +78,7 @@
  },
  "throughput_ips": null,
  "memory": {
-  "peak_rss_mb": 13.8
+  "peak_rss_mb": 13.9
  },
  "power": null,
  "accuracy": null,

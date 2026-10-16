@@ -1,9 +1,10 @@
 {
  "edgegate_matrix": 1,
- "created_at": "2026-10-16T01:42:31Z",
+ "created_at": "2026-10-16T03:01:55Z",
  "base": "/home/lilchia/workspace/edgegate/examples/command/edgegate.yaml",
  "repeats": 3,
  "max_crash_rate": 0,
+ "require_gate_pass": true,
  "cells": [
   {
    "name": "baseline",
@@ -12,10 +13,13 @@
    "skipped": 0,
    "crashed": 0,
    "crash_rate": 0.0,
+   "gate_failed": 0,
+   "under_spec": 0,
+   "under_spec_checks": [],
    "time_to_crash_s": [],
    "clean_power_w": null,
    "clean_rates": {
-    "detections": 39.026,
+    "detections": 39.271,
     "errors": 0.0
    },
    "clean_latency_p99_ms": null,
@@ -32,7 +36,7 @@
      "board_ram_peak_mb": null,
      "peak_rss_mb": 13.8,
      "exit_code": 124,
-     "wall_s": 4.04,
+     "wall_s": 4.03,
      "forensics": {
       "window_s": 30.0,
       "death_t_s": null,
@@ -47,7 +51,7 @@
       "errors": 0
      },
      "rates": {
-      "detections": 39.109,
+      "detections": 39.206,
       "errors": 0.0
      }
     },
@@ -60,35 +64,7 @@
      "board_ram_peak_mb": null,
      "peak_rss_mb": 13.9,
      "exit_code": 124,
-     "wall_s": 4.04,
-     "forensics": {
-      "window_s": 30.0,
-      "death_t_s": null,
-      "samples": 0,
-      "process_rss_mb": {
-       "min": 11,
-       "max": 14
-      }
-     },
-     "metrics": {
-      "detections": 157,
-      "errors": 0
-     },
-     "rates": {
-      "detections": 38.861,
-      "errors": 0.0
-     }
-    },
-    {
-     "rep": 3,
-     "crashed": false,
-     "gate": "pass",
-     "failed": [],
-     "power_w": null,
-     "board_ram_peak_mb": null,
-     "peak_rss_mb": 13.9,
-     "exit_code": 124,
-     "wall_s": 4.04,
+     "wall_s": 4.02,
      "forensics": {
       "window_s": 30.0,
       "death_t_s": null,
@@ -103,7 +79,35 @@
       "errors": 0
      },
      "rates": {
-      "detections": 39.109,
+      "detections": 39.303,
+      "errors": 0.0
+     }
+    },
+    {
+     "rep": 3,
+     "crashed": false,
+     "gate": "pass",
+     "failed": [],
+     "power_w": null,
+     "board_ram_peak_mb": null,
+     "peak_rss_mb": 13.8,
+     "exit_code": 124,
+     "wall_s": 4.02,
+     "forensics": {
+      "window_s": 30.0,
+      "death_t_s": null,
+      "samples": 0,
+      "process_rss_mb": {
+       "min": 12,
+       "max": 14
+      }
+     },
+     "metrics": {
+      "detections": 158,
+      "errors": 0
+     },
+     "rates": {
+      "detections": 39.303,
       "errors": 0.0
      }
     }
@@ -116,10 +120,13 @@
    "skipped": 0,
    "crashed": 3,
    "crash_rate": 1.0,
+   "gate_failed": 3,
+   "under_spec": 0,
+   "under_spec_checks": [],
    "time_to_crash_s": [
-    0.7,
-    0.68,
-    0.73
+    0.69,
+    0.76,
+    0.7
    ],
    "clean_power_w": null,
    "clean_rates": {},
@@ -130,6 +137,68 @@
    "runs": [
     {
      "rep": 1,
+     "crashed": true,
+     "gate": "fail",
+     "failed": [
+      "exit_code",
+      "metric_min:detections"
+     ],
+     "power_w": null,
+     "board_ram_peak_mb": null,
+     "peak_rss_mb": 13.9,
+     "exit_code": 3,
+     "wall_s": 0.69,
+     "forensics": {
+      "window_s": 30.0,
+      "death_t_s": null,
+      "samples": 0,
+      "process_rss_mb": {
+       "min": 11,
+       "max": 14
+      }
+     },
+     "metrics": {
+      "detections": 0,
+      "errors": 3
+     },
+     "rates": {
+      "detections": 0.0,
+      "errors": 4.348
+     }
+    },
+    {
+     "rep": 2,
+     "crashed": true,
+     "gate": "fail",
+     "failed": [
+      "exit_code",
+      "metric_min:detections"
+     ],
+     "power_w": null,
+     "board_ram_peak_mb": null,
+     "peak_rss_mb": 13.8,
+     "exit_code": 3,
+     "wall_s": 0.76,
+     "forensics": {
+      "window_s": 30.0,
+      "death_t_s": null,
+      "samples": 0,
+      "process_rss_mb": {
+       "min": 10,
+       "max": 14
+      }
+     },
+     "metrics": {
+      "detections": 0,
+      "errors": 3
+     },
+     "rates": {
+      "detections": 0.0,
+      "errors": 3.947
+     }
+    },
+    {
+     "rep": 3,
      "crashed": true,
      "gate": "fail",
      "failed": [
@@ -158,68 +227,6 @@
       "detections": 0.0,
       "errors": 4.286
      }
-    },
-    {
-     "rep": 2,
-     "crashed": true,
-     "gate": "fail",
-     "failed": [
-      "exit_code",
-      "metric_min:detections"
-     ],
-     "power_w": null,
-     "board_ram_peak_mb": null,
-     "peak_rss_mb": 13.8,
-     "exit_code": 3,
-     "wall_s": 0.68,
-     "forensics": {
-      "window_s": 30.0,
-      "death_t_s": null,
-      "samples": 0,
-      "process_rss_mb": {
-       "min": 10,
-       "max": 14
-      }
-     },
-     "metrics": {
-      "detections": 0,
-      "errors": 3
-     },
-     "rates": {
-      "detections": 0.0,
-      "errors": 4.412
-     }
-    },
-    {
-     "rep": 3,
-     "crashed": true,
-     "gate": "fail",
-     "failed": [
-      "exit_code",
-      "metric_min:detections"
-     ],
-     "power_w": null,
-     "board_ram_peak_mb": null,
-     "peak_rss_mb": 13.9,
-     "exit_code": 3,
-     "wall_s": 0.73,
-     "forensics": {
-      "window_s": 30.0,
-      "death_t_s": null,
-      "samples": 0,
-      "process_rss_mb": {
-       "min": 11,
-       "max": 14
-      }
-     },
-     "metrics": {
-      "detections": 0,
-      "errors": 3
-     },
-     "rates": {
-      "detections": 0.0,
-      "errors": 4.11
-     }
     }
    ]
   },
@@ -230,6 +237,11 @@
    "skipped": 0,
    "crashed": 0,
    "crash_rate": 0.0,
+   "gate_failed": 3,
+   "under_spec": 3,
+   "under_spec_checks": [
+    "metric_min:detections"
+   ],
    "time_to_crash_s": [],
    "clean_power_w": null,
    "clean_rates": {
@@ -239,7 +251,7 @@
    "clean_latency_p99_ms": null,
    "board_ram_peak_mb": 0,
    "forensic_patterns": [],
-   "status": "pass",
+   "status": "fail",
    "runs": [
     {
      "rep": 1,
@@ -250,7 +262,7 @@
      ],
      "power_w": null,
      "board_ram_peak_mb": null,
-     "peak_rss_mb": 13.9,
+     "peak_rss_mb": 13.8,
      "exit_code": 124,
      "wall_s": 4.04,
      "forensics": {
@@ -258,7 +270,7 @@
       "death_t_s": null,
       "samples": 0,
       "process_rss_mb": {
-       "min": 12,
+       "min": 11,
        "max": 14
       }
      },
@@ -280,7 +292,7 @@
      ],
      "power_w": null,
      "board_ram_peak_mb": null,
-     "peak_rss_mb": 13.9,
+     "peak_rss_mb": 13.8,
      "exit_code": 124,
      "wall_s": 4.03,
      "forensics": {
@@ -288,7 +300,7 @@
       "death_t_s": null,
       "samples": 0,
       "process_rss_mb": {
-       "min": 10,
+       "min": 12,
        "max": 14
       }
      },
@@ -318,7 +330,7 @@
       "death_t_s": null,
       "samples": 0,
       "process_rss_mb": {
-       "min": 10,
+       "min": 12,
        "max": 14
       }
      },
@@ -340,10 +352,13 @@
    "skipped": 0,
    "crashed": 3,
    "crash_rate": 1.0,
+   "gate_failed": 3,
+   "under_spec": 0,
+   "under_spec_checks": [],
    "time_to_crash_s": [
-    2.1,
-    2.15,
-    2.16
+    2.16,
+    2.09,
+    2.1
    ],
    "clean_power_w": null,
    "clean_rates": {},
@@ -354,68 +369,6 @@
    "runs": [
     {
      "rep": 1,
-     "crashed": true,
-     "gate": "fail",
-     "failed": [
-      "exit_code",
-      "metric_min:detections"
-     ],
-     "power_w": null,
-     "board_ram_peak_mb": null,
-     "peak_rss_mb": 13.8,
-     "exit_code": 3,
-     "wall_s": 2.1,
-     "forensics": {
-      "window_s": 30.0,
-      "death_t_s": null,
-      "samples": 0,
-      "process_rss_mb": {
-       "min": 12,
-       "max": 14
-      }
-     },
-     "metrics": {
-      "detections": 80,
-      "errors": 0
-     },
-     "rates": {
-      "detections": 38.095,
-      "errors": 0.0
-     }
-    },
-    {
-     "rep": 2,
-     "crashed": true,
-     "gate": "fail",
-     "failed": [
-      "exit_code",
-      "metric_min:detections"
-     ],
-     "power_w": null,
-     "board_ram_peak_mb": null,
-     "peak_rss_mb": 13.9,
-     "exit_code": 3,
-     "wall_s": 2.15,
-     "forensics": {
-      "window_s": 30.0,
-      "death_t_s": null,
-      "samples": 0,
-      "process_rss_mb": {
-       "min": 0,
-       "max": 14
-      }
-     },
-     "metrics": {
-      "detections": 80,
-      "errors": 0
-     },
-     "rates": {
-      "detections": 37.209,
-      "errors": 0.0
-     }
-    },
-    {
-     "rep": 3,
      "crashed": true,
      "gate": "fail",
      "failed": [
@@ -442,6 +395,68 @@
      },
      "rates": {
       "detections": 37.037,
+      "errors": 0.0
+     }
+    },
+    {
+     "rep": 2,
+     "crashed": true,
+     "gate": "fail",
+     "failed": [
+      "exit_code",
+      "metric_min:detections"
+     ],
+     "power_w": null,
+     "board_ram_peak_mb": null,
+     "peak_rss_mb": 13.8,
+     "exit_code": 3,
+     "wall_s": 2.09,
+     "forensics": {
+      "window_s": 30.0,
+      "death_t_s": null,
+      "samples": 0,
+      "process_rss_mb": {
+       "min": 11,
+       "max": 14
+      }
+     },
+     "metrics": {
+      "detections": 80,
+      "errors": 0
+     },
+     "rates": {
+      "detections": 38.278,
+      "errors": 0.0
+     }
+    },
+    {
+     "rep": 3,
+     "crashed": true,
+     "gate": "fail",
+     "failed": [
+      "exit_code",
+      "metric_min:detections"
+     ],
+     "power_w": null,
+     "board_ram_peak_mb": null,
+     "peak_rss_mb": 13.9,
+     "exit_code": 3,
+     "wall_s": 2.1,
+     "forensics": {
+      "window_s": 30.0,
+      "death_t_s": null,
+      "samples": 0,
+      "process_rss_mb": {
+       "min": 12,
+       "max": 14
+      }
+     },
+     "metrics": {
+      "detections": 80,
+      "errors": 0
+     },
+     "rates": {
+      "detections": 38.095,
       "errors": 0.0
      }
     }

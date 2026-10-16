@@ -1,6 +1,6 @@
 {
  "edgegate_version": "0.2.0",
- "created_at": "2026-10-16T01:42:28Z",
+ "created_at": "2026-10-16T03:01:53Z",
  "device": {
   "name": "host",
   "hostname": "topski-M715q",
@@ -43,13 +43,13 @@
    "10"
   ],
   "timeline": "/home/lilchia/workspace/safety-tools-site/matrix-example/slow/r3.d/timeline.csv",
-  "started_at": "2026-10-16T01:42:24Z",
+  "started_at": "2026-10-16T03:01:49Z",
   "forensics": {
    "window_s": 30.0,
    "death_t_s": null,
    "samples": 0,
    "process_rss_mb": {
-    "min": 10,
+    "min": 12,
     "max": 14
    }
   }

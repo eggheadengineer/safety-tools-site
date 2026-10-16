@@ -1,6 +1,6 @@
 {
  "edgegate_version": "0.2.0",
- "created_at": "2026-10-16T01:42:13Z",
+ "created_at": "2026-10-16T03:01:38Z",
  "device": {
   "name": "host",
   "hostname": "topski-M715q",
@@ -33,7 +33,7 @@
  "command": {
   "exit_code": 3,
   "timed_out": false,
-  "wall_s": 0.68,
+  "wall_s": 0.76,
   "stdout": "/home/lilchia/workspace/safety-tools-site/matrix-example/batch2/r2.d/stdout.log",
   "argv": [
    "/usr/bin/env",
@@ -47,7 +47,7 @@
    "2"
   ],
   "timeline": "/home/lilchia/workspace/safety-tools-site/matrix-example/batch2/r2.d/timeline.csv",
-  "started_at": "2026-10-16T01:42:13Z",
+  "started_at": "2026-10-16T03:01:37Z",
   "forensics": {
    "window_s": 30.0,
    "death_t_s": null,
@@ -66,7 +66,7 @@
   },
   "errors": {
    "count": 3,
-   "per_s": 4.412,
+   "per_s": 3.947,
    "file": "/home/lilchia/workspace/safety-tools-site/matrix-example/batch2/r2.d/events.log"
   }
  },
