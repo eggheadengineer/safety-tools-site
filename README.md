@@ -17,4 +17,6 @@ cd ../../../edgegate && edgegate run -c examples/host/edgegate.yaml -o /tmp/base
 cd ../safety-tools-site && python build.py --bundle /tmp/bundle.json --fb fb.json --make-fb --base /tmp/base.json --cand /tmp/cand.json
 ```
 
+`matrix-example/` is the output of `edgegate matrix -c examples/command/matrix.yaml -o ../safety-tools-site/matrix-example` on the public stand-in engine.
+
 `template.html` is the page, `build.py` fills in the data, `index.html` is the published result.

@@ -167,6 +167,7 @@ def main():
     data = {"graph": graph(bundle), "cov": cov(bundle), "fb": fb_rows(json.load(open(a.fb))),
             "eg": edgegate(json.load(open(a.base)), json.load(open(a.cand)), thr),
             "jetson": jetson(a.jetson),
+            "matrix": json.load(open(HERE / "matrix-example" / "summary.json")) if (HERE / "matrix-example" / "summary.json").exists() else None,
             "generated": {"reqthread": bundle["generator"]["version"], "bundle_created": bundle["created_at"]}}
     tpl = (HERE / "template.html").read_text()
     (HERE / "index.html").write_text(tpl.replace("/*__DATA__*/", json.dumps(data, separators=(",", ":"))))

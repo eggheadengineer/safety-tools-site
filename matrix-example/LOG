@@ -1,0 +1,26 @@
+2026-10-16T01:41:58Z matrix start: 4 cells x 3 repeats -> /home/lilchia/workspace/safety-tools-site/matrix-example
+2026-10-16T01:41:58Z == baseline r1 mode=- killed_stale=0 2026-10-16T01:41:58Z
+2026-10-16T01:42:02Z    exit 124 (full window) after 4.04 s · detections 158 (39.109/s) · errors 0 (0.0/s) · gate pass
+2026-10-16T01:42:02Z == batch2 r1 mode=- killed_stale=0 2026-10-16T01:42:02Z
+2026-10-16T01:42:02Z    exit 3 after 0.7 s · detections 0 (0.0/s) · errors 3 (4.286/s) · gate fail
+2026-10-16T01:42:02Z == slow r1 mode=- killed_stale=0 2026-10-16T01:42:02Z
+2026-10-16T01:42:06Z    exit 124 (full window) after 4.04 s · detections 40 (9.901/s) · errors 0 (0.0/s) · gate fail
+2026-10-16T01:42:06Z == flaky r1 mode=- killed_stale=0 2026-10-16T01:42:06Z
+2026-10-16T01:42:09Z    exit 3 after 2.1 s · detections 80 (38.095/s) · errors 0 (0.0/s) · gate fail
+2026-10-16T01:42:09Z == baseline r2 mode=- killed_stale=0 2026-10-16T01:42:09Z
+2026-10-16T01:42:13Z    exit 124 (full window) after 4.04 s · detections 157 (38.861/s) · errors 0 (0.0/s) · gate pass
+2026-10-16T01:42:13Z == batch2 r2 mode=- killed_stale=0 2026-10-16T01:42:13Z
+2026-10-16T01:42:13Z    exit 3 after 0.68 s · detections 0 (0.0/s) · errors 3 (4.412/s) · gate fail
+2026-10-16T01:42:13Z == slow r2 mode=- killed_stale=0 2026-10-16T01:42:13Z
+2026-10-16T01:42:17Z    exit 124 (full window) after 4.03 s · detections 40 (9.926/s) · errors 0 (0.0/s) · gate fail
+2026-10-16T01:42:17Z == flaky r2 mode=- killed_stale=0 2026-10-16T01:42:17Z
+2026-10-16T01:42:20Z    exit 3 after 2.15 s · detections 80 (37.209/s) · errors 0 (0.0/s) · gate fail
+2026-10-16T01:42:20Z == baseline r3 mode=- killed_stale=0 2026-10-16T01:42:20Z
+2026-10-16T01:42:24Z    exit 124 (full window) after 4.04 s · detections 158 (39.109/s) · errors 0 (0.0/s) · gate pass
+2026-10-16T01:42:24Z == batch2 r3 mode=- killed_stale=0 2026-10-16T01:42:24Z
+2026-10-16T01:42:24Z    exit 3 after 0.73 s · detections 0 (0.0/s) · errors 3 (4.11/s) · gate fail
+2026-10-16T01:42:24Z == slow r3 mode=- killed_stale=0 2026-10-16T01:42:24Z
+2026-10-16T01:42:28Z    exit 124 (full window) after 4.03 s · detections 40 (9.926/s) · errors 0 (0.0/s) · gate fail
+2026-10-16T01:42:28Z == flaky r3 mode=- killed_stale=0 2026-10-16T01:42:28Z
+2026-10-16T01:42:31Z    exit 3 after 2.16 s · detections 80 (37.037/s) · errors 0 (0.0/s) · gate fail
+2026-10-16T01:42:31Z matrix done: 12 new runs, 0 already present

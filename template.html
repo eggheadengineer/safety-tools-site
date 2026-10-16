@@ -112,6 +112,11 @@ footer{margin-top:56px;color:var(--mute);font-size:13px}
 <p class="lede" id="jlede"></p>
 <div class="panel"><svg id="jbars" viewBox="0 0 1040 300"></svg><div id="jtable"></div><p class="small mute" id="jnote"></p></div>
 
+<h2>edgegate matrix: variants times repeats, with a verdict per cell</h2>
+<p class="lede">One YAML names a base config and a list of variants. edgegate runs them interleaved so drift cannot favour one, resumes if interrupted, and tabulates crash rate, time to crash and clean-run rate per cell with one JUnit case each. This is the public stand-in engine: a script that emits detections, with a batch-size bug and a timed crash built in so the gate has something to catch.</p>
+<div class="panel"><svg id="mx" viewBox="0 0 1040 280" role="img" aria-label="Crashed and clean runs per matrix cell"></svg><div id="mxtable"></div>
+<p class="small mute">Crashed runs carry a forensics block: when the process tree's memory collapsed and what RAM, power rails and RSS did in the 30 seconds before, classified as a plateau or allocation cycling. A baseline that failed its own gate is refused for regression checks, so a run that died early can never make the next one look like a power regression.</p></div>
+
 <h2>How they fit a safety lifecycle</h2>
 <div class="row">
 <div class="panel"><h3>IEC 61508 part 3</h3><p class="small">Requirements, architecture and design elements map to the lifecycle sections you load from your own copy of the standard. Tools are declared with their T1/T2/T3 class. Module, integration and PE-integration test levels are separate, so a passing host test cannot stand in for a board test.</p></div>
@@ -200,6 +205,19 @@ if(J&&J.modes.length){
  const lg=el("g",{class:"bars"},JB);el("rect",{x:20,y:270,width:14,height:14,class:"cand"},lg);el("text",{x:40,y:282},lg).textContent="latency p99";el("rect",{x:140,y:270,width:14,height:14,class:"base"},lg);el("text",{x:160,y:282},lg).textContent="board power (VDD_IN)";
  document.getElementById("jtable").innerHTML=J.table;document.getElementById("jnote").textContent=J.note;
 }
+
+// ---- matrix example
+const MX=DATA.matrix;
+if(MX){const sv=document.getElementById("mx"),cells=MX.cells,n=cells.length,cw=(1040-80)/n,bw=Math.min(cw*0.5,70),yb=210,yt=36,maxn=Math.max(...cells.map(c=>c.n));const ys=v=>yb-(yb-yt)*v/maxn;
+ for(let v=0;v<=maxn;v++){el("line",{x1:56,x2:1020,y1:ys(v),y2:ys(v),class:v?"ax":"ax0"},sv);el("text",{x:48,y:ys(v)+4,"text-anchor":"end",class:"lbl"},sv).textContent=v;}
+ cells.forEach((c,i)=>{const x=56+cw*i+(cw-bw)/2,g=el("g",{class:"bars"},sv);
+  if(c.crashed)el("rect",{x,y:ys(c.crashed),width:bw,height:ys(0)-ys(c.crashed)-1,rx:4,fill:"var(--bad)"},g);
+  if(c.n-c.crashed)el("rect",{x,y:ys(c.n),width:bw,height:ys(c.crashed)-ys(c.n)-1,rx:4,fill:"var(--ok)"},g);
+  el("text",{x:x+bw/2,y:ys(c.n)-8,"text-anchor":"middle",class:"lab"},g).textContent=`${c.crashed} / ${c.n} crashed`;
+  el("text",{x:x+bw/2,y:yb+18,"text-anchor":"middle",class:"lab"},g).textContent=c.name;
+  el("text",{x:x+bw/2,y:yb+36,"text-anchor":"middle",class:"verdict",fill:c.status==="fail"?"var(--bad)":"var(--ok)",style:`fill:${c.status==="fail"?"var(--bad)":"var(--ok)"}`},g,c.status.toUpperCase());});
+ el("text",{x:48,y:yt-10,"text-anchor":"end",class:"lbl"},sv).textContent="runs";
+ document.getElementById("mxtable").innerHTML=`<table><tr><th>cell</th><th>what changed</th><th>crashed</th><th>time to crash</th><th>clean rate</th><th>verdict</th></tr>`+cells.map(c=>`<tr><td>${c.name}</td><td>${c.note||""}</td><td class=n>${c.crashed} / ${c.n}</td><td class=n>${c.time_to_crash_s.length?Math.round(Math.min(...c.time_to_crash_s)*10)/10+" s":"—"}</td><td class=n>${c.clean_rates&&c.clean_rates.detections!=null?c.clean_rates.detections.toFixed(1)+" det/s":"—"}</td><td>${c.status.toUpperCase()}</td></tr>`).join("")+"</table>";}
 })();
 </script>
 </body>

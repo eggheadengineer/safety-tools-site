@@ -1,0 +1,103 @@
+{
+ "edgegate_version": "0.2.0",
+ "created_at": "2026-10-16T01:42:17Z",
+ "device": {
+  "name": "host",
+  "hostname": "topski-M715q",
+  "machine": "x86_64",
+  "python": "3.12.13"
+ },
+ "model": {
+  "path": "../../../../../../usr/bin/env",
+  "sha256": "sha256:886e5fa8be716b03eeda48856e0f04493f2969fc148fb7812594ffac647fa050",
+  "input_shape": null,
+  "backend": "command",
+  "precision": null,
+  "version": null,
+  "args": [
+   "python3",
+   "workload.py",
+   "--out",
+   "{out}",
+   "--rate",
+   "10"
+  ]
+ },
+ "benchmark": {
+  "warmup": 0,
+  "iterations": 0,
+  "duration_s": 4
+ },
+ "command": {
+  "exit_code": 124,
+  "timed_out": true,
+  "wall_s": 4.03,
+  "stdout": "/home/lilchia/workspace/safety-tools-site/matrix-example/slow/r2.d/stdout.log",
+  "argv": [
+   "/usr/bin/env",
+   "python3",
+   "workload.py",
+   "--out",
+   "/home/lilchia/workspace/safety-tools-site/matrix-example/slow/r2.d",
+   "--rate",
+   "10"
+  ],
+  "timeline": "/home/lilchia/workspace/safety-tools-site/matrix-example/slow/r2.d/timeline.csv",
+  "started_at": "2026-10-16T01:42:13Z",
+  "forensics": {
+   "window_s": 30.0,
+   "death_t_s": null,
+   "samples": 0,
+   "process_rss_mb": {
+    "min": 10,
+    "max": 14
+   }
+  }
+ },
+ "metrics": {
+  "detections": {
+   "count": 40,
+   "per_s": 9.926,
+   "file": "/home/lilchia/workspace/safety-tools-site/matrix-example/slow/r2.d/events.log"
+  },
+  "errors": {
+   "count": 0,
+   "per_s": 0.0,
+   "file": "/home/lilchia/workspace/safety-tools-site/matrix-example/slow/r2.d/events.log"
+  }
+ },
+ "latency_ms": {
+  "p50": null,
+  "p90": null,
+  "p99": null,
+  "mean": null,
+  "min": null,
+  "max": null,
+  "n": 0,
+  "source": "n/a: command backend has no per-inference latency; see metrics[*].per_s"
+ },
+ "throughput_ips": null,
+ "memory": {
+  "peak_rss_mb": 13.9
+ },
+ "power": null,
+ "accuracy": null,
+ "notes": [
+  "matrix cell slow rep 2"
+ ],
+ "gate": {
+  "status": "fail",
+  "failed": [
+   "metric_min:detections"
+  ],
+  "checked": [
+   "exit_code",
+   "metric_min:detections"
+  ],
+  "baseline": null
+ },
+ "matrix": {
+  "cell": "slow",
+  "rep": 2
+ }
+}
